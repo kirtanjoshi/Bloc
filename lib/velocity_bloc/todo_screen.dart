@@ -39,10 +39,11 @@ class _ToDoScreenState extends State<ToDoScreen> {
             );
           } else if (state is VelocityUpdateState) {
             return ListView.builder(
-              itemCount: 10,
+              itemCount: state.data!.todos!.length,
               itemBuilder: (context, index) {
-                return const ListTile(
-                  title: Text("hello"),
+                var todoData = state.data!.todos![index];
+                return ListTile(
+                  title: Text(todoData.todo.toString()),
                 );
               },
             );

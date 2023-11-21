@@ -11,6 +11,12 @@ class ItemScreen extends StatefulWidget {
 
 class _ItemScreenState extends State<ItemScreen> {
   @override
+  void initState() {
+    context.read<ItemsBloc>().add(ItemsLoadedEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ItemsBloc, ItemsState>(builder: (context, state) {
@@ -22,8 +28,12 @@ class _ItemScreenState extends State<ItemScreen> {
           return ListView.builder(
               itemCount: 5,
               itemBuilder: (context, index) {
-                return const ListTile(
-                  leading: Text("hello"),
+                return ListTile(
+                  leading:
+                      Text(state.todomodel.data!.movies![index].id.toString()),
+                  subtitle: Text(state
+                      .todomodel.data!.movies![index].torrents![index].type
+                      .toString()),
                 );
               });
         } else if (state is ItemsErrorState) {
